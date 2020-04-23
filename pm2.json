@@ -1,0 +1,25 @@
+{
+  "apps": [
+    {
+      "name": "blog-server",
+      "script": "production.js",
+      "cwd": "/data/app/blog-server",
+      "exec_mode": "fork",
+      "max_memory_restart": "1G",
+      "autorestart": true,
+      "node_args": [],
+      "args": [],
+      "watch": ["./app", "./assets"],
+      "ignore_watch" : [
+        "node_modules", 
+        "logs"
+      ],
+      "watch_options": {
+        "followSymlinks": false
+      },
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
