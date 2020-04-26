@@ -7,12 +7,8 @@ var articleSchema = new mongoose.Schema({
   category: String,
   author: String,
   body:   String,
-  comments: [{ content: String, date: Date, comName: { type: String, default: '大牛'} }],
+  comments: [{ content: String, date: { type: Date, default: Date.now }, comName: { type: String, default: '大牛'} }],
   hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs:  Number
-  },
   createTime: { type: Date, default: Date.now },
   updateTIme: { type: Date, default: Date.now }
 });
