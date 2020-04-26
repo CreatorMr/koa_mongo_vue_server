@@ -19,6 +19,7 @@ pm2 startOrReload pm2.json
 ```
 
 ### 使用的包 注释
+
 koa-bodyparser 解析 post请求的发送的表单。需要在router之前被注册到app对象上
 pm2-logrotate 监控／日志管理
 "bcrypt"   加密用户密码（数据库没有存明文密码）
