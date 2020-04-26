@@ -17,6 +17,23 @@ Use pm2 to deploy app on production enviroment.
 ```
 pm2 startOrReload pm2.json
 ```
+### 项目目录
+使用tree 命令生成目录树
+tree -C -L 2
+.
+├── README.md
+├── app.js
+├── package-lock.json
+├── package.json
+├── pm2.json
+└── src
+    ├── config
+    ├── controllers
+    ├── models
+    ├── public
+    ├── routes
+    └── utils
+
 
 ### 使用的包 注释
 
