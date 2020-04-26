@@ -20,6 +20,7 @@ pm2 startOrReload pm2.json
 ### 项目目录
 使用tree 命令生成目录树
 tree -C -L 2
+```
 .
 ├── README.md
 ├── app.js
@@ -33,7 +34,7 @@ tree -C -L 2
     ├── public
     ├── routes
     └── utils
-
+```
 
 ### 使用的包 注释
 
