@@ -23,17 +23,17 @@ tree -C -L 2
 ```
 .
 ├── README.md
-├── app.js
+├── app.js   入口
 ├── package-lock.json
 ├── package.json
-├── pm2.json
+├── pm2.json 
 └── src
-    ├── config
-    ├── controllers
-    ├── models
-    ├── public
-    ├── routes
-    └── utils
+    ├── config   配置文件  -  链接数据库
+    ├── controllers   接口api 统一管理
+    ├── models       数据库操作  使用mongoose   操作和schema在统一目录下
+    ├── public        
+    ├── routes       路由文件统一管理
+    └── utils        工具函数，第三方服务
 ```
 
 ### 使用的包 注释
