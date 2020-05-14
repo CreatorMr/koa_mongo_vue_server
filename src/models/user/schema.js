@@ -2,12 +2,12 @@
 var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
-  userId: String,
-  username:  String,
-  nickname:  String,
+  user_id: String,
+  user_name:  String,
+  nick_name:  String,
   password: String,
   email: String,
-  headerImg: String,
+  avatar: String,
   age: Number,
   phone: String,
   createTime: { type: Date, default: Date.now },

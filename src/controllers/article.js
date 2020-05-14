@@ -1,6 +1,9 @@
 const Article = require('../models/article')
 const article = new Article()
 
+
+console.log(article, 'article----')
+
 const createArticle = async (ctx, next) => {
   const opts = ctx.request.body
   console.log(opts, '入参')
@@ -15,7 +18,8 @@ const createArticle = async (ctx, next) => {
 
 const getTagsList =async (ctx, next) =>{
   let result = []
-  let res = await article.query({})
+  let doc = await article.query({})
+  console.log(doc, '--------------')
   if (doc) {
     for (let i in doc) {
       const tags = doc[i].tags
@@ -42,6 +46,7 @@ const getAll = async (ctx, next) => {
     start = query && query.start;
   const token = ctx.request.headers.token || '';
   let res 
+  console.log(query, '0-0-0-')
   if(JSON.stringify(query) === '{}') {
     res = await article.query({})
   } else {
@@ -74,6 +79,8 @@ const addArticleComment = async (ctx, next) => {
     artList: res
   }
 }
+
+
 module.exports = {
   createArticle,
   getTagsList,

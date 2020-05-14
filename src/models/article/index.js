@@ -1,4 +1,5 @@
-const ArticleModel = require('./schema.js')
+const ArticleModel = require('./schema.js');
+const Tag = require('./tag.js');
 
 
 class Article {
@@ -6,6 +7,7 @@ class Article {
     this.model = ArticleModel
   }
   save(opts) {
+    console.log(opts, '0000')
     return new ArticleModel(opts).save();
   }
   query (opts) {
@@ -14,8 +16,11 @@ class Article {
     .exec()
   }
   queryById (id) {
-    console.log(id)
     return this.model.findById(id)
+    .populate(
+      { path: 'tags', model: Tag }
+    )
+
   }
   remove (id, fn) {
     return this.model.findById(id).then(function (doc) {
