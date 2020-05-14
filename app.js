@@ -3,6 +3,9 @@ const static = require('koa-static')
 const koa = require('koa-router')()
 const mount = require('koa-mount')
 const bodyParser = require('koa-bodyparser');
+
+const cors = require('koa2-cors');
+
 /**
  * koa-mount
  * koa-router 
@@ -30,6 +33,7 @@ app.use(
       ctx.status = 200;
   })
 )
+
 app.use(static(__dirname + '/src/public/'))
 // app.use(async ctx => {
 //   ctx.body = 'Hello World';
@@ -40,5 +44,6 @@ app.use(static(__dirname + '/src/public/'))
 // }))
 koa.use('/admin', admin.routes(), admin.allowedMethods());
 app.use(koa.routes());
+app.use(cors());
 app.listen(3000);
 

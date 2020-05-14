@@ -32,6 +32,11 @@ const getTagsList =async (ctx, next) =>{
 }
 
 const getAll = async (ctx, next) => {
+  // 设置跨域头信息
+  ctx.response.set("Access-Control-Allow-Origin", ctx.header['origin'] || '*')
+  ctx.response.set("Access-Control-Allow-Credentials", 'true')
+  ctx.response.set("Access-Control-Allow-Methods", ctx.header['access-control-request-method'] || '*')
+  ctx.response.set("Access-Control-Allow-Headers", ctx.header['access-control-request-headers'] || '*')
   const query = ctx.request.query
   const limit = query && query.limit,
     start = query && query.start;
@@ -42,7 +47,11 @@ const getAll = async (ctx, next) => {
   } else {
     res = await article.queryById(query)
   }
-  ctx.body = res
+  console.log(1111)
+  ctx.body = {
+    data: res,
+    count: res.length
+  }
 }
 
 const getArticleComment = async (ctx, next) => {
