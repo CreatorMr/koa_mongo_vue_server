@@ -1,3 +1,4 @@
+
 const Koa = require('koa');
 const static = require('koa-static')
 const koa = require('koa-router')()
@@ -5,6 +6,7 @@ const mount = require('koa-mount')
 const bodyParser = require('koa-bodyparser');
 
 const cors = require('koa2-cors');
+const cookie = require('koa-cookie')
 
 /**
  * koa-mount
@@ -20,11 +22,11 @@ db.once('open', function() {
   console.log('connect success!')
 });
 
-var admin = require('./src/routes/admin.js')
-
+const admin = require('./src/routes/admin.js')
+const login = require('./src/routes/login.js')
 
 app.use(bodyParser());
-
+app.use(cookie.default());
 app.use(
   mount('/favicon.ico', function (ctx) {
       // koa比express做了更极致的response处理函数
@@ -33,7 +35,7 @@ app.use(
       ctx.status = 200;
   })
 )
-
+// 处理静态文件
 app.use(static(__dirname + '/src/public/'))
 // app.use(async ctx => {
 //   ctx.body = 'Hello World';
@@ -42,7 +44,9 @@ app.use(static(__dirname + '/src/public/'))
 //   console.log(ctx.query)
 //   ctx.body = ctx.query
 // }))
+
 koa.use('/admin', admin.routes(), admin.allowedMethods());
+koa.use('/login', login.routes(), login.allowedMethods());
 app.use(koa.routes());
 app.use(cors());
 app.listen(3000);

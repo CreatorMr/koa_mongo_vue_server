@@ -1,32 +1,32 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user/index')
+
 const user = new User()
 // 登录
-const login = function async () {
-  const ctx = this;
+const login =  async (ctx, next) =>{
   const opts = ctx.request.body;
   const token = jwt.sign(JSON.stringify({ name: opts.name, timestamp: Date.now()}), 'jwtToken-creator');
+  console.log(token, 'token')
   let resDoc = await user.query(opts)
-  const user = resDoc[0] || ''
-  if (user) {
+  const res = resDoc[0] || ''
+  if (res) {
     ctx.body = {
       message: '登陆成功！',
-      user: user,
+      user: res,
       ok: true,
       token: token
     }
   } else {
     ctx.body = {
       msg: '用户名或密码错误',
-      user: user,
+      user: res,
       ok: false
     }
   }
 }
 
 // 注册
-const register = function async () {
-  const ctx = this;
+const register =  async (ctx, next) => {
   const opts = this.request.body;
   let resDoc = await user.query({username: opts.username})
   if (resDoc.length > 0) {

@@ -1,9 +1,7 @@
 const Article = require('../models/article')
 const article = new Article()
 
-
-console.log(article, 'article----')
-
+// 创建文章
 const createArticle = async (ctx, next) => {
   const opts = ctx.request.body
   console.log(opts, '入参')
@@ -16,37 +14,14 @@ const createArticle = async (ctx, next) => {
   }
 }
 
-const getTagsList =async (ctx, next) =>{
-  let result = []
-  let doc = await article.query({})
-  console.log(doc, '--------------')
-  if (doc) {
-    for (let i in doc) {
-      const tags = doc[i].tags
-      if (result.indexOf(tags) === -1) {
-        result.push(tags)
-      }
-    }
-    ctx.body = {
-      success: true,
-      message: '获取标签成功',
-      tagsList: result
-    }
-  }
-}
 
+// 获取所有文章
 const getAll = async (ctx, next) => {
-  // 设置跨域头信息
-  ctx.response.set("Access-Control-Allow-Origin", ctx.header['origin'] || '*')
-  ctx.response.set("Access-Control-Allow-Credentials", 'true')
-  ctx.response.set("Access-Control-Allow-Methods", ctx.header['access-control-request-method'] || '*')
-  ctx.response.set("Access-Control-Allow-Headers", ctx.header['access-control-request-headers'] || '*')
   const query = ctx.request.query
   const limit = query && query.limit,
-    start = query && query.start;
+        start = query && query.start;
   const token = ctx.request.headers.token || '';
   let res 
-  console.log(query, '0-0-0-')
   if(JSON.stringify(query) === '{}') {
     res = await article.query({})
   } else {
@@ -59,12 +34,14 @@ const getAll = async (ctx, next) => {
   }
 }
 
+// 获取文章的评论
 const getArticleComment = async (ctx, next) => {
   const query = ctx.request.query
   let res = await article.queryById(query)
   ctx.body = res.comments
 }
 
+// 添加评论
 const addArticleComment = async (ctx, next) => {
   const opts = ctx.request.body
   const id = {
@@ -83,7 +60,6 @@ const addArticleComment = async (ctx, next) => {
 
 module.exports = {
   createArticle,
-  getTagsList,
   getAll,
   getArticleComment,
   addArticleComment
