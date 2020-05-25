@@ -11,20 +11,20 @@ class Article {
     console.log(opts, '0000')
     return new ArticleModel(opts).save();
   }
-  query (opts) {
-    return this.model.find(opts)
+  query (conditions = {}, fields= {} , options = {}) {
+    console.log(options, 'options')
+    return this.model.find(conditions, fields, options)
     .populate(
       [{ path: 'tags'},{ path: 'category' },{path: 'comments'}]
     )
-    .sort({ _id: -1 })
     .exec()
   }
   queryById (id) {
     return this.model.findById(id)
     .populate(
-      { path: 'tags' }
+      [{ path: 'tags'},{ path: 'category' },{path: 'comments'}]
     )
-
+    .exec()
   }
   remove (id, fn) {
     return this.model.findById(id).then(function (doc) {
@@ -32,18 +32,30 @@ class Article {
       return doc.remove();
     })
   }
-  update(id, opts) {
-    let comments = [{
-      ...opts
-    }]
-    return this.model.findByIdAndUpdate(id,  { author: 'jason bourne', comments }, {
-      new: true,
-      // select: {} // 设置返回字段
+  updateComment(id, opts) {
+    return this.model.findById(id).then( async (doc) =>{
+      if (!doc) return fn(null, false);
+      console.log( doc.comments, ' doc.comments')
+      // 找到文章之后 根据  opts 创建评论 返回评论的objectid 
+      let com = await new CommentModel(opts).save();
+      let comments = doc.comments
+      comments.push(com._id)
+      return this.model.findByIdAndUpdate(id,  { comments }, {
+        new: true,
+      }) 
     })
   }
-}
 
-module.exports = Article
+  update(id, opts) {
+    return this.model.findById(id).then( async (doc) =>{
+      if (!doc) return fn(null, false);
+      return this.model.findByIdAndUpdate(id,  opts, {
+        new: true,
+      }) 
+    })
+  }
+
+}
 
 
 class Tag {
@@ -59,6 +71,19 @@ class Tag {
     .exec()
   }
 }
-
-module.exports = Tag
+class Category {
+  constructor() {
+    this.model = CategoryModel
+  }
+  query (opts) {
+    return this.model.find(opts)
+    .sort({ _id: -1 })
+    .exec()
+  }
+}
+module.exports = {
+  Article,
+  Tag,
+  Category
+}
 

@@ -1,4 +1,4 @@
-
+  
 const Koa = require('koa');
 const static = require('koa-static')
 const koa = require('koa-router')()
@@ -7,14 +7,14 @@ const bodyParser = require('koa-bodyparser');
 
 const cors = require('koa2-cors');
 const cookie = require('koa-cookie')
-
+const koaBody = require('koa-body'); //解析上传文件的插件
 /**
  * koa-mount
  * koa-router 
  * 两个都是koa使用的路由的库
  */
 const app = new Koa();
-console.log()
+
 const db = require('./src/config/db.js')()
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -22,11 +22,14 @@ db.once('open', function() {
   console.log('connect success!')
 });
 
+// 引入路由文件
 const admin = require('./src/routes/admin.js')
-const login = require('./src/routes/login.js')
+const loginUser = require('./src/routes/user.js')
+const uploadImg = require('./src/routes/uploadImg.js')
 
 app.use(bodyParser());
 app.use(cookie.default());
+
 app.use(
   mount('/favicon.ico', function (ctx) {
       // koa比express做了更极致的response处理函数
@@ -37,17 +40,19 @@ app.use(
 )
 // 处理静态文件
 app.use(static(__dirname + '/src/public/'))
-// app.use(async ctx => {
-//   ctx.body = 'Hello World';
-// });
+
+// request-test
+
 // app.use(mount('/admin/create', (ctx, next)=> {
 //   console.log(ctx.query)
 //   ctx.body = ctx.query
 // }))
 
 koa.use('/admin', admin.routes(), admin.allowedMethods());
-koa.use('/login', login.routes(), login.allowedMethods());
+koa.use('/loginUser', loginUser.routes(), loginUser.allowedMethods());
+koa.use('/uploadImg', uploadImg.routes(), uploadImg.allowedMethods());
 app.use(koa.routes());
+
 app.use(cors());
 app.listen(3000);
 

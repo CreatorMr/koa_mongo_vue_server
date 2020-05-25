@@ -17,8 +17,11 @@
 // }
 
 const mongoose = require('mongoose')
+const autoIncrement = require('mongoose-auto-increment')
 module.exports = function() {
   mongoose.connect("mongodb://localhost:27017/blog")
+  	// 自增 ID 初始化
+	autoIncrement.initialize(mongoose.connection)
   return mongoose.connection
 }
 
