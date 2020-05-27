@@ -69,7 +69,7 @@ const getAll = async (ctx, next) => {
   }
   options = {
     skip,
-    limit: pageSize,
+    limit: pageSize - 0,//,
     sort: { createTime: -1 }
   }
   let res 
@@ -79,10 +79,8 @@ const getAll = async (ctx, next) => {
     res = await article.query(conditions, fields, options)
     if(tag_id) {
       res = res.filter(docs => docs.tags.find(x=>{
-        console.log(x._id == tag_id, '././')
        return  x._id == tag_id
       } ))
-      console.log(res, '11111')
     }
     if(category_id) {
       res = res.filter(docs => docs.category.find(x=>x._id == category_id ))
