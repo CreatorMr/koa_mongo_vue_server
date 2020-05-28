@@ -15,7 +15,7 @@ npm start
 ### Deploy with pm2
 Use pm2 to deploy app on production enviroment.
 ```
-pm2 startOrReload pm2.json
+pm2 start
 ```
 ### 项目目录
 使用tree 命令生成目录树
