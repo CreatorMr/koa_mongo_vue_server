@@ -21,6 +21,11 @@ db.once('open', function() {
   // we're connected!
   console.log('connect success!')
 });
+// var myobj = { "email": "creator@creator.com", "password": "admin",  "nick_name" : "creator","status" : "admin", id: 0 };
+// db.collection("users").insertOne(myobj, function(err, res) {
+//   if (err) throw err;
+//   console.log("初始化管理员文档插入成功");
+// })
 
 // 引入路由文件
 const admin = require('./src/routes/admin.js')
@@ -43,10 +48,10 @@ app.use(static(__dirname + '/src/public/'))
 
 // request-test
 
-app.use(mount('/', (ctx, next)=> {
-  console.log(ctx.query)
-  ctx.body = "服务端已经启动"
-}))
+// app.use(mount('/', (ctx, next)=> {
+//   console.log(ctx.query)
+//   ctx.body = "服务端已经启动"
+// }))
 
 koa.use('/admin', admin.routes(), admin.allowedMethods());
 koa.use('/loginUser', loginUser.routes(), loginUser.allowedMethods());
