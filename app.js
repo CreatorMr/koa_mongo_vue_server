@@ -43,9 +43,9 @@ app.use(static(__dirname + '/src/public/'))
 
 // request-test
 
-// app.use(mount('/admin/create', (ctx, next)=> {
+// app.use(mount('/', (ctx, next)=> {
 //   console.log(ctx.query)
-//   ctx.body = ctx.query
+//   ctx.body = "服务端已经启动"
 // }))
 
 koa.use('/admin', admin.routes(), admin.allowedMethods());
