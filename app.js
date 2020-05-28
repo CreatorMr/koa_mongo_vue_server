@@ -43,10 +43,10 @@ app.use(static(__dirname + '/src/public/'))
 
 // request-test
 
-// app.use(mount('/', (ctx, next)=> {
-//   console.log(ctx.query)
-//   ctx.body = "服务端已经启动"
-// }))
+app.use(mount('/', (ctx, next)=> {
+  console.log(ctx.query)
+  ctx.body = "服务端已经启动"
+}))
 
 koa.use('/admin', admin.routes(), admin.allowedMethods());
 koa.use('/loginUser', loginUser.routes(), loginUser.allowedMethods());
@@ -54,5 +54,5 @@ koa.use('/uploadImg', uploadImg.routes(), uploadImg.allowedMethods());
 app.use(koa.routes());
 
 app.use(cors());
-app.listen(8360);
+app.listen(3000);
 
