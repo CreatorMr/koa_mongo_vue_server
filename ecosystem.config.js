@@ -19,12 +19,15 @@ module.exports = {
 
   deploy : {
     production : {
-      user : 'node',
-      host : '106.53.236.144',
+      user : 'root',
+      host : ['106.53.236.144'],
       ref  : 'origin/master',
-      repo : 'git@github.com:CreatorMr/koa_mongo_vue_server.git',
-      path : '/data/app/koa_mongo_vue_server',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+      repo : 'https://github.com/CreatorMr/koa_mongo_vue_server.git',
+      path : '/data/app/koa_mongo_vue_server2',
+      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production',
+      "env"  : {
+        "NODE_ENV": "production"
+      }
     }
   }
 };
