@@ -72,10 +72,12 @@ const getAll = async (ctx, next) => {
     limit: pageSize - 0,//,
     sort: { createTime: -1 }
   }
-  let res 
+  let res
+  let count = 0
   if(articleId) {
     res = await article.queryById({_id:articleId})
   } else {
+    count = await article.query(conditions, fields, {  sort: { createTime: -1 } })
     res = await article.query(conditions, fields, options)
     if(tag_id) {
       res = res.filter(docs => docs.tags.find(x=>{
@@ -88,7 +90,7 @@ const getAll = async (ctx, next) => {
   }
   ctx.body = {
     data: res,
-    count: res.length
+    count: count.length
   }
 }
 
@@ -117,7 +119,15 @@ const addArticleComment = async (ctx, next) => {
   const id = {
     _id : opts.article_id
   }
-  
+  // todo required 字段 为空校验 return error
+  if(!opts.content) {
+    ctx.body = {
+      ok: false,
+      message: '内容不能空',
+      artList: []
+    }
+    return
+  }
   // 需要文章的_id 评论的内容
   let res = await article.updateComment(id, opts)
   console.log(res.comments, 'res')
