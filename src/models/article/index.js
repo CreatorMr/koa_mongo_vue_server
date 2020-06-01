@@ -12,8 +12,11 @@ class Article {
     return new ArticleModel(opts).save();
   }
   query (conditions = {}, fields= {} , options = {}) {
+    console.log(conditions, 'conditions')
     console.log(options, 'options')
+    console.log(fields, 'options')
     return this.model.find(conditions, fields, options)
+    // return this.model.find()
     .populate(
       [{ path: 'tags'},{ path: 'category' },{path: 'comments'}]
     )

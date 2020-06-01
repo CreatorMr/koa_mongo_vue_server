@@ -57,10 +57,9 @@ const getAll = async (ctx, next) => {
         {
           $or: [
             { title: { $regex: reg } },
-            { desc: { $regex: reg } },
-            { keyword: { $regex: reg } },
+            { desc: { $regex: reg } }
           ],
-        },
+        }
       ],
     };
   }
@@ -77,16 +76,15 @@ const getAll = async (ctx, next) => {
   if(articleId) {
     res = await article.queryById({_id:articleId})
   } else {
-    count = await article.query(conditions, fields, {  sort: { createTime: -1 } })
-    res = await article.query(conditions, fields, options)
     if(tag_id) {
-      res = res.filter(docs => docs.tags.find(x=>{
-       return  x._id == tag_id
-      } ))
+      conditions =  { ...conditions, tags: {_id: tag_id}}
     }
     if(category_id) {
-      res = res.filter(docs => docs.category.find(x=>x._id == category_id ))
+      conditions =  { ...conditions, category: {_id: category_id}}
+
     }
+    count = await article.query(conditions, fields, {  sort: { createTime: -1 } })
+    res = await article.query(conditions, fields, options)
   }
   ctx.body = {
     data: res,
@@ -138,28 +136,10 @@ const addArticleComment = async (ctx, next) => {
   }
 }
 
-const uploadImg = async (ctx, next) => {
-  let file = ctx.request.files; // 获取上传文件
-   // 创建可读流
-   const reader = fs.createReadStream(file['image']['path']);
-   let filePath = `./src/public/img` + `/${file['image']['name']}`;
-   let remoteFilePath = `http://localhost:3000/img/my_blog_img` + `/${file['image']['name']}`;
-   // 创建可写流
-   const upStream = fs.createWriteStream(filePath);
-   // 可读流通过管道写入可写流
-   reader.pipe(upStream);
-   return ctx.body = {
-       url: remoteFilePath,
-       message: "文件上传成功",
-       cc: 0
-   } 
-}
-
 module.exports = {
   createArticle,
   getAll,
   getArticleComment,
   addArticleComment,
-  uploadImg,
   updateArticle
 }

@@ -5,8 +5,15 @@ const uploadImg = async (ctx, next) => {
    // 创建可读流
    const reader = fs.createReadStream(file['image']['path']);
    console.log(__dirname, '__dirname')
+   debugger
    let filePath = `./src/public/img` + `/${file['image']['name']}`;
-   let remoteFilePath = `http://localhost:3000/img` + `/${file['image']['name']}`;
+   console.log(process.env, 'process.env')
+   let remoteFilePath
+   if(process.env.NODE_ENV === 'development') {
+    remoteFilePath = `http://localhost:3000/img` + `/${file['image']['name']}`; //
+   } else {
+    remoteFilePath = `http://106.53.236.144:3000/img` + `/${file['image']['name']}`;
+   }
    // 创建可写流
    console.log(filePath, 'filePath')
    const upStream = fs.createWriteStream(filePath);
@@ -15,7 +22,7 @@ const uploadImg = async (ctx, next) => {
    return ctx.body = {
        url: remoteFilePath,
        message: "文件上传成功",
-       cc: 0
+       ok: true
    } 
 }
 module.exports = {

@@ -46,3 +46,5 @@ pm2-logrotate 监控／日志管理
 "koa2-cors": // 解决跨域
 "mongoose":  // 操作 mongoDB 数据库
 "uuid":// 生成唯一 id
+
+"cross-env ": // 跨平台设置 env

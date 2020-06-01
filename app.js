@@ -1,6 +1,7 @@
   
 const Koa = require('koa');
 const static = require('koa-static')
+const onerror = require('koa-onerror')
 const koa = require('koa-router')()
 const mount = require('koa-mount')
 const bodyParser = require('koa-bodyparser');
@@ -8,12 +9,17 @@ const bodyParser = require('koa-bodyparser');
 const cors = require('koa2-cors');
 const cookie = require('koa-cookie')
 const koaBody = require('koa-body'); //解析上传文件的插件
+
+// const dotenv =  require('dotenv');
+// dotenv.config('./env');
+// console.log(process.env);
 /**
  * koa-mount
  * koa-router 
  * 两个都是koa使用的路由的库
  */
 const app = new Koa();
+onerror(app);
 
 const db = require('./src/config/db.js')()
 db.on('error', console.error.bind(console, 'connection error:'));
