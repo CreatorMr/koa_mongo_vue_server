@@ -1,6 +1,7 @@
 const { Article } = require('../models/article')
 const category = require('../models/article/category')
 const article = new Article()
+const { sendMail } = require('../utils/sendEmail.js')
 const fs = require('fs')
 const path = require('path')
 // 创建文章
@@ -128,6 +129,9 @@ const addArticleComment = async (ctx, next) => {
   }
   // 需要文章的_id 评论的内容
   let res = await article.updateComment(id, opts)
+  // 留言发送邮件  功能已经完成， 后续有评论回复功能的时候 在启动  
+  // 暂时只给自己发邮件查看留言 opts.email 替换成自己的邮箱
+  // sendMail(opts.email, {article_id: opts.article_id, user_name: opts.user_name})
   console.log(res.comments, 'res')
   ctx.body = {
     ok: true,
