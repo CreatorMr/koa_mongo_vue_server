@@ -5,11 +5,11 @@ const onerror = require('koa-onerror')
 const koa = require('koa-router')()
 const mount = require('koa-mount')
 const bodyParser = require('koa-bodyparser');
-
+const logger = require('koa-logger')
 const cors = require('koa2-cors');
 const cookie = require('koa-cookie')
 const koaBody = require('koa-body'); //解析上传文件的插件
-
+const checkLogin = require('./src/middleware/check_login.js')
 // const dotenv =  require('dotenv');
 // dotenv.config('./env');
 // console.log(process.env);
@@ -23,16 +23,21 @@ onerror(app);
 
 const db = require('./src/config/db.js')()
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  console.log('connect success!')
-});
+global.dbUser = db.model("users",{
+  email: String,
+  password: String,
+  nick_name:  { type: String, default: "长江7号" },
+  avatar: String,
+  status: { type: String, default: "normal" },
+  createTime: { type: Date, default: Date.now },
+  updateTIme: { type: Date, default: Date.now }
+})
 // var myobj = { "email": "creator@creator.com", "password": "admin",  "nick_name" : "creator","status" : "admin", id: 0 };
 // db.collection("users").insertOne(myobj, function(err, res) {
 //   if (err) throw err;
 //   console.log("初始化管理员文档插入成功");
 // })
-
+ 
 // 引入路由文件
 const admin = require('./src/routes/admin.js')
 const loginUser = require('./src/routes/user.js')
@@ -58,12 +63,19 @@ app.use(static(__dirname + '/src/public/'))
 //   console.log(ctx.query)
 //   ctx.body = "服务端已经启动"
 // }))
-
-koa.use('/admin', admin.routes(), admin.allowedMethods());
+app.use(checkLogin())
 koa.use('/loginUser', loginUser.routes(), loginUser.allowedMethods());
+koa.use('/admin', admin.routes(), admin.allowedMethods());
 koa.use('/uploadImg', uploadImg.routes(), uploadImg.allowedMethods());
 app.use(koa.routes());
 
 app.use(cors());
+
+app.use(logger((str, args) => {
+  // redirect koa logger to other output pipe
+  // default is process.stdout(by console.log function)
+  console.log(str, 'str')
+  console.log(args, 'args')
+}))
 app.listen(3000);
 

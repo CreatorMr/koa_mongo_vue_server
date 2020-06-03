@@ -8,13 +8,9 @@ class Article {
     this.model = ArticleModel
   }
   save(opts) {
-    console.log(opts, '0000')
     return new ArticleModel(opts).save();
   }
   query (conditions = {}, fields= {} , options = {}) {
-    console.log(conditions, 'conditions')
-    console.log(options, 'options')
-    console.log(fields, 'options')
     return this.model.find(conditions, fields, options)
     // return this.model.find()
     .populate(
@@ -38,7 +34,6 @@ class Article {
   updateComment(id, opts) {
     return this.model.findById(id).then( async (doc) =>{
       if (!doc) return fn(null, false);
-      console.log( doc.comments, ' doc.comments')
       // 找到文章之后 根据  opts 创建评论 返回评论的objectid 
       let com = await new CommentModel(opts).save();
       let comments = doc.comments
