@@ -37,11 +37,6 @@ if [ ! "$push" ]; then
  exit;
 fi
 
-if [ ! -e "node_modules" ]; then
-  npm install -P
-else
-  npm install
-fi
 npm run build
 # 登录服务器
 expect -c "
