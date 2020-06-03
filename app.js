@@ -1,6 +1,6 @@
   
 const Koa = require('koa');
-const static = require('koa-static')
+const static2 = require('koa-static')
 const onerror = require('koa-onerror')
 const koa = require('koa-router')()
 const mount = require('koa-mount')
@@ -55,7 +55,7 @@ app.use(
   })
 )
 // 处理静态文件
-app.use(static(__dirname + '/src/public/'))
+app.use(static2(__dirname + '/src/public/'))
 
 // request-test
 

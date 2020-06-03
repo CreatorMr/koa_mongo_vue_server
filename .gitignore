@@ -32,4 +32,4 @@ output.tar.gz
 
 # mac
 .DS_Store
-
+deploy.js
