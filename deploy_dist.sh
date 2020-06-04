@@ -44,7 +44,7 @@ npm run build
 expect -c "
   spawn rsync -raqpPLv build $1@$2:/data/app/koa_mongo_vue_server/
   expect {
-          \"*assword\" {set timeout 100000;send \"$3\r\";}
+          \"*assword\" {send \"$3\r\";}
           \"yes/no\" {send \"yes\r\"; exp_continue;}
   }
   spawn ssh -p 22 $1@$2
@@ -52,12 +52,11 @@ expect -c "
     \"yes/no\" { send \"yes\r\"; exp_continue }
     \"assword\" { send \"$3\r\" }
   }
-  set timeout 5000;
-  expect \"*]\#*\" {send \"cd  /data/app/koa_mongo_vue_server/build\r\"}
-  expect \"*]\#*\" {send \"npm install\r\"}
-   set timeout 10000;
-  expect \"*]\#*\" { send \"pm2 restart app\r\" }
-  expect  {send \"\r\"; exp_continue;}
+  expect \"*]\#*\" { send \"cd /data/app/koa_mongo_vue_server/build/\r\" }
+  expect \"*]\#*\" { send \"npm install\r\" }
+
+  expect \"*]\#*\" { send \"pm2 restart API\r\" }
+  
   interact"
   
 echo "部署成功"

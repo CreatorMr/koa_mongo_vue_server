@@ -46,6 +46,7 @@ module.exports = {
         { from: path.join(__dirname, 'package.json'), to: path.join(__dirname, 'build') },
         { from: path.join(__dirname, 'package-lock.json'), to: path.join(__dirname, 'build') },
         { from: path.join(__dirname, 'ecosystem.config.js'), to: path.join(__dirname, 'build') },
+        { from: path.join(__dirname, 'src/public'), to: path.join(__dirname, 'build/public') },
       ],
     }),
   ],

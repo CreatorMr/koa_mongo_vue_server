@@ -2,6 +2,7 @@ module.exports = {
   apps : [{
     name: 'API',
     script: 'app.js',
+    "cwd": "/data/app/koa_mongo_vue_server/build/",
     "listen_timeout" : 10000,
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     args: 'one two',
