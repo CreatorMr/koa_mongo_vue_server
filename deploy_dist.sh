@@ -37,7 +37,9 @@ if [ ! "$push" ]; then
  exit;
 fi
 
-npm run build
+# npm run build
+# expect \"*]\#*\" { send \"pm2 restart app/\r\" }
+
 # 登录服务器
 expect -c "
  set timeout 10000;
@@ -48,7 +50,6 @@ expect -c "
   }
  
 
-  expect \"*]\#*\" { send \"pm2 restart app/\r\" }
 
   interact"
   
