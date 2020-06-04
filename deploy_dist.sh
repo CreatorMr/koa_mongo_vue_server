@@ -47,6 +47,7 @@ expect -c "
           \"*assword\" {send \"$3\r\";}
           \"yes/no\" {send \"yes\r\"; exp_continue;}
   }
+  expect \"EOF\"
   spawn ssh -p 22 $1@$2
   expect {
     \"yes/no\" { send \"yes\r\"; exp_continue }
@@ -54,8 +55,7 @@ expect -c "
   }
   expect \"*]\#*\" { send \"cd /data/app/koa_mongo_vue_server/build/\r\" }
   expect \"*]\#*\" { send \"npm install\r\" }
-
-  expect \"*]\#*\" { send \"pm2 restart API\r\" }
+  expect \"*]\#*\" { send \"pm2 start ecosystem.config.js\r\" }
   
   interact"
   
