@@ -7,6 +7,6 @@ const tagSchema = new mongoose.Schema({
 	name: { type: String, required: true, validate: /\S+/ },
 	desc: String, // 标签描述
 	icon: String,
-	create_time: { type: Date, default: Date.now },	// 图标
+	create_time: { type: Date, default: Date.now },
 });
 module.exports = mongoose.model('Tag', tagSchema);

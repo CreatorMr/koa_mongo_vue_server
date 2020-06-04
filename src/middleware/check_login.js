@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken')
-const whiteList = [
+
+// 需要验证
+const blackList = [
   '/loginUser/info',
   '/admin/addComment'
 ]
 
 module.exports = function () {
   return async function (ctx, next) {
-    if (whiteList.indexOf(ctx.path) != -1) {
+    if (blackList.indexOf(ctx.path) != -1) {
       // 需要验证
       console.log(ctx.path, '登录验证')
       const token = ctx.cookies.get('jwtToken-creator') || ''

@@ -45,6 +45,9 @@ expect -c "
           \"*assword\" {set timeout 100000;send \"$3\r\";}
           \"yes/no\" {send \"yes\r\"; exp_continue;}
   }
+  set timeout 5000;
+
+  expect \"*]\#*\" { send \"pm2 restart app/\r\" }
 
   interact"
   
