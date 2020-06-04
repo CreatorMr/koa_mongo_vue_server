@@ -37,19 +37,15 @@ if [ ! "$push" ]; then
  exit;
 fi
 
-# npm run build
-# expect \"*]\#*\" { send \"pm2 restart app/\r\" }
 
+npm run build
 # 登录服务器
 expect -c "
- set timeout 10000;
   spawn rsync -raqpPLv build $1@$2:/data/app/koa_mongo_vue_server/
   expect {
           \"*assword\" {set timeout 100000;send \"$3\r\";}
           \"yes/no\" {send \"yes\r\"; exp_continue;}
   }
- 
-
 
   interact"
   
