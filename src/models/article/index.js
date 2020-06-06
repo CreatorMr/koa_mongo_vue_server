@@ -73,6 +73,9 @@ class Category {
   constructor() {
     this.model = CategoryModel
   }
+  save(opts) {
+    return new CategoryModel(opts).save();
+  }
   query (opts) {
     return this.model.find(opts)
     .sort({ _id: -1 })

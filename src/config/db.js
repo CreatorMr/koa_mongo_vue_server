@@ -19,7 +19,12 @@
 const mongoose = require('mongoose')
 const autoIncrement = require('mongoose-auto-increment')
 module.exports = function() {
-  mongoose.connect("mongodb://127.0.0.1:27017/blog", { keepAlive: 120 })
+  if(process.env.NODE_ENV === 'development') {
+    mongoose.connect("mongodb://localhost:27017/blog", { keepAlive: 120 })
+   } else {
+    mongoose.connect("mongodb://用户名:密码@localhost:端口/blog", { keepAlive: 120 })
+   }
+
   	// 自增 ID 初始化
 	autoIncrement.initialize(mongoose.connection)
   return mongoose.connection

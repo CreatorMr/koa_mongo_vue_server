@@ -9,5 +9,6 @@ router.get('/article', article.getAll)
   .get('/getTags', tag.getTagsList)
   .post('/addTag', tag.addTag)
   .get('/categoryList', category.getCategoryList)
+  .post('/addCategory',category.addCategory)
   .post('/updateArticle', article.updateArticle)
 module.exports = router;

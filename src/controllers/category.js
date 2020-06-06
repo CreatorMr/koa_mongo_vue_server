@@ -10,7 +10,28 @@ const getCategoryList =async (ctx, next) =>{
   }
 }
 
+const addCategory =async (ctx, next) =>{
+  const opts = ctx.request.body
+  let resDoc = await category.query({name: opts.name})
+  if (resDoc.length > 0) {
+    ctx.body = {
+      message: '该分类已存在',
+      data: resDoc,
+      ok: false
+    }
+  } else {
+    let doc = await category.save(opts)
+    ctx.body = {
+      ok: true,
+      message: '添加分类成功',
+      tagsList: doc
+    }
+  }
+  
+}
+
 
 module.exports = {
-  getCategoryList
+  getCategoryList,
+  addCategory
 }
