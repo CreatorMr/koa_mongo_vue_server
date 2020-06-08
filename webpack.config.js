@@ -24,8 +24,8 @@ module.exports = {
     global: true,
     process: true,
     Buffer: true,
-    __filename: true,
-    __dirname: true,
+    __filename: false,
+    __dirname: false,
     setImmediate: true,
     path: true
   },
