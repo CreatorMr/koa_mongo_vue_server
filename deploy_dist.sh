@@ -55,6 +55,7 @@ expect -c "
   }
   expect \"*]\#*\" { send \"cd /data/app/koa_mongo_vue_server/build/\r\" }
   expect \"*]\#*\" { send \"npm install\r\" }
+  expect \"*]\#*\" { send \"pm2 stop all\r\" }
   expect \"*]\#*\" { send \"pm2 start ecosystem.config.js\r\" }
   
   interact"
