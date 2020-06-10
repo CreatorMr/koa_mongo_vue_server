@@ -34,4 +34,3 @@ output.tar.gz
 .DS_Store
 deploy.js
 /build
-/src/learnArticle
