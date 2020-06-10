@@ -89,7 +89,8 @@ const getAll = async (ctx, next) => {
   }
   ctx.body = {
     data: res,
-    count: count.length
+    count: count.length,
+    success: true
   }
 }
 
