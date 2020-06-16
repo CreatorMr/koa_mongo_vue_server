@@ -13,7 +13,7 @@ const uploadImg = async (ctx, next) => {
    if(process.env.NODE_ENV === 'development') {
     remoteFilePath = `http://localhost:3000/img` + `/${file['image']['name']}`; //
    } else {
-    remoteFilePath = `http://106.53.236.144:3000/img` + `/${file['image']['name']}`;
+    remoteFilePath = `http://106.52.111.158:3000/img` + `/${file['image']['name']}`;
    }
    // 创建可写流
    console.log(filePath, 'filePath')
