@@ -32,12 +32,8 @@ global.dbUser = db.model("users",{
   createTime: { type: Date, default: Date.now },
   updateTIme: { type: Date, default: Date.now }
 })
-// var myobj = { "email": "creator@creator.com", "password": "admin",  "nick_name" : "creator","status" : "admin", id: 0 };
-// db.collection("users").insertOne(myobj, function(err, res) {
-//   if (err) throw err;
-//   console.log("初始化管理员文档插入成功");
-// })
- 
+// { "email": "账号", "password": "密码",  "nick_name" : "creator","status" : "admin", id: 0 };
+
 // 引入路由文件
 const admin = require('./src/routes/admin.js')
 const loginUser = require('./src/routes/user.js')
