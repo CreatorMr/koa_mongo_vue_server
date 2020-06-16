@@ -19,7 +19,7 @@ function sendMail(mail, option, call) {
         to: mail, //接收者邮箱，多个邮箱用逗号间隔
         subject: '欢迎来到"Creator-demo"', // 标题
         text: 'Hello world?', // 文本内容
-        html: `<p>${option.user_name}给你留言了快去看看吧:</p><a href="http://106.53.236.144/article?articleId=${option.articleId}">点击跳转</a>`, //页面内容
+        html: `<p>${option.user_name}给你留言了快去看看吧:</p><a href="http://106.52.111.158/article?articleId=${option.articleId}">点击跳转</a>`, //页面内容
     };
 
     //发送函数

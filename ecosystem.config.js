@@ -21,7 +21,7 @@ module.exports = {
   deploy : {
     production : {
       user : 'root',
-      host : ['106.53.236.144'],
+      host : ['106.52.111.158'],
       ref  : 'origin/master',
       repo : 'https://github.com/CreatorMr/koa_mongo_vue_server.git',
       path : '/data/app/koa_mongo_vue_server2',
