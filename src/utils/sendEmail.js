@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
 function sendMail(mail, option, call) {
     // 发送的配置项
     let mailOptions = {
-        from: '"Creator-blog" <382988057@qq.com>', // 发送方
+        from: '"Creator-blog"', // 发送方
         to: mail, //接收者邮箱，多个邮箱用逗号间隔
         subject: '欢迎来到"Creator-demo"', // 标题
         text: 'Hello world?', // 文本内容
